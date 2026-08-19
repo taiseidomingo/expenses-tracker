@@ -29,8 +29,8 @@ This Python CLI Personal Expense Tracker evolved from a simple script into a mod
 
 ```text
 .
-├── expense_tracker_v1.py   # Initial baseline implementation
-├── expense_tracker_v2.py   # Upgraded modular application
+├── expenses-tracker-v1.py   # Initial baseline implementation
+├── expense-tracker-v2.py   # Upgraded modular application
 ├── top_expenses.json       # Generated output file for top 3 expenses (v2)
 ├── LICENSE                 # Proprietary / All Rights Reserved license
 └── README.md               # Project documentation
@@ -57,19 +57,19 @@ This Python CLI Personal Expense Tracker evolved from a simple script into a mod
 
 2. **Run Version 1:**
    ```bash
-   python expense_tracker_v1.py
+   python expense-tracker-v1.py
    ```
 
 3. **Run Version 2 (Recommended):**
    ```bash
-   python expense_tracker_v2.py
+   python expense-tracker-v2.py
    ```
 
 ---
 
 ## 📖 How to Use (v2 Menu Overview)
 
-When you run `expense_tracker_v2.py`, you will be presented with the following interactive menu:
+When you run `expense-tracker-v2.py`, you will be presented with the following interactive menu:
 
 1. **Add Expense:** Choose from 8 predefined categories, enter the amount, and auto-attach current date/time.
 2. **Delete Expense:** View indexed expenses and delete a record safely after confirmation.
