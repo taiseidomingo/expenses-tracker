@@ -1,0 +1,53 @@
+#Use this for initializing global data so you can use the functions inside the looping example the adding expenses.
+# Consider this as you container.
+data = []
+
+while True:
+
+    print("Personal Expense Tracker")
+    print("1. Add Expense \n2. View Expense \n3. Show Total Spending \n4. Show Biggest Expense \n5. Exit \n")
+
+    answer = int(input("Enter your choice: "))
+
+    if answer == 1:
+        #Use this if you're going to input multiple data and will use append or list,
+        # since we initialize the global container, we need to use this to input values inside the container.
+        inputs = {
+            "nameOfExpense" : input("Enter the name of expense: "),
+            "amountOfExpense" : float(input("Enter the amount of expense: "))
+        }
+
+        data.append(inputs)
+
+        print("Returning to menu... \n")
+    elif answer == 2:
+        if data:
+            #We need to use this to print the datas, we use item instead of data to prevent bugs from happening.
+            for index, item in enumerate(data, start=1):
+                print(f"Name : {item['nameOfExpense']} | Amount : {item['amountOfExpense']} \n")
+        else:
+            print("No data found... \nreturning to menu... \n")
+
+    elif answer == 3:
+        if data:
+            #First thing that we do here it to call all of the items and sum if all up before printing.
+            totalSpending = sum(item["amountOfExpense"] for item in data)
+
+            print(f"Total Spending : {totalSpending} \n")
+        else:
+            print("No data found... \nreturning to menu...")
+
+    elif answer == 4:
+        if data:
+            #Here we use max to find the biggest number inside the list.
+            biggestExpense = max(data, key=lambda item: item["amountOfExpense"])
+
+            print(f"Name : {biggestExpense['nameOfExpense']}")
+            print(f"Amount : {biggestExpense['amountOfExpense']} \n")
+
+        else:
+            print("No data found... \nreturning to menu...\n")
+
+    elif answer == 5:
+        print("Exiting the program...")
+        exit()
