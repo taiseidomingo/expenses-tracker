@@ -1,0 +1,131 @@
+from datetime import datetime
+import json
+
+data = []
+
+category = {
+            1 : "Health",
+            2 : "Education",
+            3 : "Food",
+            4 : "Rent",
+            5 : "Bills",
+            6 : "Entertainment",
+            7 : "Shopping",
+            8 : "Others"
+        }
+
+def addExpense(data):
+    try :
+        print("Expenses Category")
+        print("\n1. Health\n2. Education\n3. Food\n4. Rent\n5. Bills\n6. Entertainment\n7. Shopping\n8. Others")
+
+        choice = int(input("Enter category type : "))
+        inputs = {
+            "nameOfCategory" : category.get(choice),
+            "amountOfExpenses" : int(input("Enter the amount of expenses : ")),
+            "date" : datetime.now().strftime("%d/%m/%Y"),
+            "time" : datetime.now().strftime("%H:%M:%S")
+        }
+        data.append(inputs)
+        print(f"You have added {inputs['amountOfExpenses']} to your bank")
+    except :
+        print("Enter a valid input")
+
+def showExpense(data):
+    try:
+        for i, item in enumerate(data, start=1):
+            print(f"{i}. {item['nameOfCategory']} - {item['amountOfExpenses']}")
+    except :
+        print("Doesn't have any data")
+
+def deleteExpense(data):
+    if not data:
+        print("There are no expenses to delete")
+        return
+
+    showExpense(data)
+    try:
+        deleteInput = int(input("Enter your choice : "))
+        confirmationOfDeletion = input("Do you wish to delete this? (y/n) : ")
+        if confirmationOfDeletion.strip().lower() == "y":
+            data.pop(deleteInput - 1)
+        else:
+            return
+    except :
+        print("Enter a valid input")
+
+
+def categorizeExpense(data):
+    try :
+        print("Expenses Category")
+        print("\n1. Health\n2. Education\n3. Food\n4. Rent\n5. Bills\n6. Entertainment\n7. Shopping\n8. Others")
+
+        categoryType = int(input("Enter your choice : "))
+        if categoryType >= 1 and categoryType <=8 :
+            categories = category.get(categoryType)
+            for expense in data:
+                if expense["nameOfCategory"] == categories:
+                    print(f"{expense['nameOfCategory']} - {expense['amountOfExpenses']}")
+        else:
+            print("Enter a valid input")
+    except :
+        print("Enter a valid input")
+
+def calculateDailyExpense(data):
+    try :
+        today = datetime.now().strftime("%d/%m/%Y")
+        dailyTotal = 0
+
+        for expense in data:
+            if expense["date"] == today:
+                dailyTotal += expense["amountOfExpenses"]
+
+        print(f"Today's daily expenses: {dailyTotal}")
+
+    except :
+        print("Doesn't have any data")
+
+
+def calculateTotalSpending(data):
+    try :
+        totalSpending = []
+
+        for expense in data:
+            totalSpending.append(expense["amountOfExpenses"])
+
+        sums = sum(totalSpending)
+        print(f"Total Spending: {sums}")
+    except :
+        print("Doesn't have any data")
+
+def saveBiggestExpense(data):
+    try :
+        biggestExpense = sorted(data, key=lambda expense: expense["amountOfExpenses"], reverse=True)
+        top = biggestExpense[:3]
+
+        with open("top_expenses.json", "w") as file:
+            json.dump(top, file, indent=4)
+        print("Saving your file...")
+    except :
+        print("Doesn't have any data")
+
+while True:
+    print("Expenses Tracker")
+    print("1. Add Expense \n2. Delete Expense \n3. Categorize Expense\n4. Calculate Daily Expense\n5. Calculate Total Spending\n6. Save Biggest Expense To Json\n7. Exit")
+
+    answer = int(input("Enter your choice: "))
+
+    if answer == 1:
+        addExpense(data)
+    elif answer == 2:
+        deleteExpense(data)
+    elif answer == 3:
+        categorizeExpense(data)
+    elif answer == 4:
+        calculateDailyExpense(data)
+    elif answer == 5:
+        calculateTotalSpending(data)
+    elif answer == 6:
+        saveBiggestExpense(data)
+    elif answer == 7:
+        exit()
